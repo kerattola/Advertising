@@ -29,36 +29,40 @@ require_once ("./math_model/ad_model.php");
             <input class="text form__input" type="text" name="k" placeholder= "k" size="5" required>
             
             <div class="form_text">Оптимальність реклами</div>
-            <input class="text form__input" type="text" name="$alpha_opt" placeholder= "$alpha_opt" size="5" required>
+            <input class="text form__input" type="text" name="alpha_opt" placeholder= "alpha_opt" size="5" required>
             
             <div class="form_text">Модифікований ступінь спілкування клієнтів </div>
-            <input class="text form__input" type="text" name="$alpha22" placeholder= "$alpha22" size="5" required>
+            <input class="text form__input" type="text" name="alpha22" placeholder= "alpha22" size="5" required>
         </div>
        </div>   
         <button class="form__btn" type="submit">
                            <div> Calculate </div>
         </button>
-        
-    </form>
 
-    <?php
-//ТРЕБА ІНПУТИ ДЛЯ ТАКИХ ЗНАЧЕНЬ
+<?php
 //ВАЛІДАЦІЯ ЗНАЧЕНЬ
+if(!empty($_POST)) {
+    //ПЕРЕВЕДЕННЯ ЗНАЧЕНЬ У ПОТРІБНИЙ ВИД - МАШТАБУВАННЯ
+    $N0 = $_POST["num"];
+    $alpha1 = $_POST["alpha1"];
+    $alpha2 = $_POST["alpha2"];
 
-$N0 = 172199;    //максимальна кількість покупців  CH TO NUM !!!!!
-$alpha1 = 0.07;   //інтенсивність реклами
-$alpha2 = 0.02;  //ступінь спілкування клієнтів з іншими людьми позначимо
-$p = 300;      //величина прибутку від продажу одиниці товару
-$s = 50000;      //вартість (ціна) елементарного акту реклами
-$k = 0.01;      //коефіцієнт пропорційності
-$alpha_opt = 0.03;
-$alpha22 = 0.01;
+    $p = $_POST["p"];
+    $s = $_POST["s"];
+    $k = $_POST["k"];
+    $alpha_opt = $_POST["alpha_opt"];
+    $alpha22 = $_POST["alpha22"];
 
-//ПЕРЕВЕДЕННЯ ЗНАЧЕНЬ У ПОТРІБНИЙ ВИД - МАШТАБУВАННЯ
-//ЗАКИДУЄМО У БД
-//ПЕРЕВІРКА УМОВИ ДОЦІЛЬНОСТІ РЕКЛАМИ
+    //ЗАКИДУЄМО У БД
+    //ПЕРЕВІРКА УМОВИ ДОЦІЛЬНОСТІ РЕКЛАМИ
 
-//ВИКЛИК ФУНКЦІЙ ОБРАХУНКУ
-//ФУНКЦІЇ ПОВЕРНУТЬ МАСИВИ
-//ВИВЕСТИ ГРАФІК
-?>
+    //ВИКЛИК ФУНКЦІЙ ОБРАХУНКУ
+    //ФУНКЦІЇ ПОВЕРНУТЬ МАСИВИ
+
+    //main1($alpha1, $alpha2, $k, $N0);
+    //main2($alpha2, $alpha1, $alpha_opt, $alpha22, $k, $N0);
+
+    //ВИВЕСТИ ГРАФІК
+ }
+    ?>
+    </form>
