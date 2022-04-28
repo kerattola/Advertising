@@ -4,8 +4,8 @@ require_once ("./math_model/ad_model.php");
 ?>
 
 <div class="container">
-        <span>Введіть всі потрібні параметри</span>
-    <form  method="POST">
+    <div class="main__title">Введіть всі потрібні параметри</div>
+    <form class="container" method="POST">
       <div class="form">
         <div class="form__collum">
             <div class="form_text">Максимальна кількість покупців</div>
@@ -36,7 +36,7 @@ require_once ("./math_model/ad_model.php");
         </div>
        </div>   
         <button class="form__btn" type="submit">
-                           <div> Calculate </div>
+                           Почати 
         </button>
 
 <?php
@@ -66,3 +66,5 @@ if(!empty($_POST)) {
  }
     ?>
     </form>
+
+    </div>

@@ -1,18 +1,16 @@
      <footer class="footer">
-        <div class="footer__container">
+        <div class="container">
             <div class="footer__inner">
 
-
-               <h3>Lab © 2022кк</h3>
-                    
-
-                </div>
+               <div>Організація рекламної кампанії у випадку визначення кількості 
+                    проінформованих клієнтів
+               </div>
+                <div>Учасники команди: Тетяна Керунець, Клапащук Анастасія, Дибкалюк Юлія </div>
+                <div> 2022 </div>
 
             </div>
         </div><!-- /.container -->
-
     </footer>
-
 </body>
 
 </html>
