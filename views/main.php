@@ -9,6 +9,11 @@ $database = "advertising_campaign";
 $username = "root";
 $password = "";
 
+$conn3 = mysqli_connect($servername,$username,$password,$database);
+mysqli_set_charset($conn3, 'utf8');
+if (!$conn3) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 ?>
 
 <div class="container">
@@ -51,6 +56,7 @@ $password = "";
         </button>
 
         <?php
+        //ВАЛІДАЦІЯ ЗНАЧЕНЬ
         $pattern_int = '/^\d+$/';
         $pattern_float = '/^[\d]*[\.,]?[\d]*$|/';
 
@@ -88,10 +94,6 @@ $password = "";
                 $flag = 1;
             }
 
-        }
-        
-        //ВАЛІДАЦІЯ ЗНАЧЕНЬ
-        if(!empty($_POST)) {
             //ПЕРЕВЕДЕННЯ ЗНАЧЕНЬ У ПОТРІБНИЙ ВИД - МАШТАБУВАННЯ
             $N0 = $_POST["num"];
             $alpha1 = $_POST["alpha1"];
@@ -102,25 +104,34 @@ $password = "";
             $alpha_opt = $_POST["alpha_opt"];
             $alpha22 = $_POST["alpha22"];
 
+            //ДОДАТИ ІНПУТИ НА ЦІ ПОЛЯ----------------------------
+            $T_days = 10; //$_POST["t_days"]
+            $region_title = 'Chernivtsi'; //$_POST["region_title"]
+            $prod_title = 'Phone'; //$_POST["prod_title"]
+
             $alpha1 =  $alpha1 * 0.01;
             $alpha2 =  $alpha2 * 0.01;
             $alpha_opt = $alpha_opt * 0.01;
             $alpha22 = $alpha22 * 0.01;
 
             //ЗАКИДУЄМО У БД
-        if(!empty($_POST)) {
-            if($flag == 0) {
-                $conn = mysqli_connect($servername,$username,$password,$database);
+            if(!empty($_POST)) {
+                if($flag == 0) {
+                    $conn = mysqli_connect($servername,$username,$password,$database);
                 if (!$conn) {
                     die("Помилка з'єднання: " . mysqli_connect_error());
-                }
+                } else{
 
-                else{
+                    $sql1 = "INSERT INTO add_data (add_price, alpha1, alpha2, alpha_opt, alpha2_2, k, T_days) VALUES ('$s','$alpha1', '$alpha2', '$alpha_opt',' $alpha22','$k', '$T_days')";
+                    $sql2 = "INSERT INTO region (region_title, N0) VALUES ('$region_title', '$N0') ";
+                    $sql3 = "INSERT INTO product (title, price) VALUES ('$prod_title','$p')  ";
 
-                    $sql1 = "INSERT INTO add_data (add_price, alpha1, alpha2, alpha_opt, alpha22, k) VALUES ('$s','$alpha1', '$alpha2', '$alpha_opt',' $alpha22','$k')";
-                    $sql2 = "INSERT INTO region (N0) VALUES ('$N0') ";
-                    $sql3 = "INSERT INTO product (price) VALUES ('$p')  ";
-
+                    if (mysqli_query($conn, $sql1) && mysqli_query($conn, $sql2) && mysqli_query($conn, $sql3)) {echo "Correct";}
+                    else {
+                        echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
+                        echo "Error: " . $sql2 . "<br>" . mysqli_error($conn);
+                        echo "Error: " . $sql3 . "<br>" . mysqli_error($conn);
+                    }
                     mysqli_close($conn);
                 }
             }}
