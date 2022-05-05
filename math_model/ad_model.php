@@ -13,7 +13,7 @@ function N($t, $alpha1, $alpha2, $k, $N0)
 function N_before_T1($t, $alpha_max, $alpha21, $k, $N0)
 {
     $Nt1 = ($alpha_max / $alpha21);
-    $Nt21 = $alpha_max + ($alpha21 + $N0);
+    $Nt21 = $alpha_max + ($alpha21 * $N0);
     $ex = exp(-$k * (($alpha_max / $alpha21) + $N0) * ($alpha21 * $t));
     $Nt2 = $alpha_max + ($alpha21 * $N0 * $ex);
     $Nt = $Nt1 * (($Nt21 / $Nt2) - 1);
@@ -43,6 +43,7 @@ for ($t = 0; $t < 101; $t++) {
 }
     return array($T, $N_t);
 }
+
 function change_point($alpha2, $alpha1, $k, $N0)
 {
     $T1 = log(($alpha2 / $alpha1) * $N0) / ($k * (($alpha1 / $alpha2) + $N0) * $alpha2);
@@ -76,17 +77,17 @@ function main2($alpha2, $alpha1, $alpha_opt, $alpha22, $k, $N0){
         $Nt = N_before_T1($t1, $alpha1, $alpha2, $k, $N0);
         $N_alpha[$t] = $Nt;
         $T_alpha[$t] = $t1;
-        //echo $N_alpha[$t];
+        echo ' N= '.$N_alpha[$t].' ';
         $t += 1;
 
     }
-    //echo "\n";
+    echo "\n";
     while ($t <= 100){
         $t1 = $t * 0.01;
         $Nt = N_after_T1($t1, $T1, $alpha_opt, $alpha22, $k, $N0, $N1);
         $N_alpha[$t] = $Nt;
         $T_alpha[$t] = $t1;
-        //echo $N_alpha[$t];
+        echo ' N= '.$N_alpha[$t].' ';
         $t += 1;
 
     }
