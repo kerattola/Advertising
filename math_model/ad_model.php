@@ -77,19 +77,39 @@ function main2($alpha2, $alpha1, $alpha_opt, $alpha22, $k, $N0){
         $Nt = N_before_T1($t1, $alpha1, $alpha2, $k, $N0);
         $N_alpha[$t] = $Nt;
         $T_alpha[$t] = $t1;
-        echo ' N= '.$N_alpha[$t].' ';
         $t += 1;
 
     }
-    echo "\n";
     while ($t <= 100){
         $t1 = $t * 0.01;
         $Nt = N_after_T1($t1, $T1, $alpha_opt, $alpha22, $k, $N0, $N1);
         $N_alpha[$t] = $Nt;
-        $T_alpha[$t] = $t1;
-        echo ' N= '.$N_alpha[$t].' ';
         $t += 1;
-
     }
     return array($T_alpha, $N_alpha);
+}
+
+function sum_spend_first($s, $alpha1){
+    return $s * $alpha1 * 100;
+}
+
+function sum_spend_second($s, $alpha1, $T1, $alpha_opt){
+    return ($s * $alpha1 * $T1 * 100) + ($s * $alpha_opt * (100 - ($T1 * 100)));
+}
+
+function income_first($p, $alpha1, $alpha2, $k, $N0){
+    $Nt = N(1, $alpha1, $alpha2, $k, $N0);
+    return $p * $Nt;
+}
+
+function income_second($p, $alpha1, $alpha2, $k, $N0, $N1, $alpha_opt, $alpha22, $T1){
+    $D1 = $p * N_before_T1($T1, $alpha1, $alpha2, $k, $N0);
+    $D2 = $p * N_after_T1(1, $T1, $alpha_opt, $alpha22, $k, $N0, $N1);
+    return $D1 + $D2;
+}
+
+function profit_both($p, $alpha1, $alpha2, $k, $N0, $N1, $alpha_opt, $alpha22, $T1, $s){
+    $P1 = income_first($p, $alpha1, $alpha2, $k, $N0) - sum_spend_first($s, $alpha1);
+    $P2 = income_second($p, $alpha1, $alpha2, $k, $N0, $N1, $alpha_opt, $alpha22, $T1) - sum_spend_second($s, $alpha1, $T1, $alpha_opt);
+    return array($P1, $P2);
 }

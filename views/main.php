@@ -192,6 +192,18 @@ if (!$conn3) {
             //T_first i T_second вісь Х
             //N_t_first і N_t_second вісь У
             //ДВА ГРАФІКИ НА ОДНОМУ РІЗНИМИ КОЛЬОРАМИ
+
+            //ОБЧИСЛЕННЯ ІНШИХ ДАНИХ ПРО РЕКЛАМУ
+            //ВИВЕСТИ ЦІ ДАНІ З ОПИСОМ ДО ЧИ ПІСЛЯ ГРАФІКА-----------------------
+            $S_spend_first = sum_spend_first($s, $alpha1);//ЗАГАЛЬНІ ВИТРАТИ БЕЗ КОРИГУВАННЯ АЛЬФА
+
+            $S_spend_second = sum_spend_second($s, $alpha1, $T1, $alpha_opt);//ЗАГАЛЬНІ ВИТРАТИ З КОРИГУВАННЯМ АЛЬФА
+
+            $D_first = income_first($p, $alpha1, $alpha2, $k, $N0);//ДОХІД БЕЗ КОРИГУВАННЯ АЛЬФА
+
+            $D_second = income_second($p, $alpha1, $alpha2, $k, $N0, $N1, $alpha_opt, $alpha22, $T1);//ДОХІД З КОРИГУВАНЯМ АЛЬФА
+
+            list($P_first, $P_second) = profit_both($p, $alpha1, $alpha2, $k, $N0, $N1, $alpha_opt, $alpha22, $T1, $s);//ПРИБУТОК БЕЗ ТА З КОРИГУВАННЯМ АЛЬФА
         }
         ?>
     </form>
