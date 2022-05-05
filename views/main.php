@@ -114,36 +114,84 @@ if (!$conn3) {
             $alpha_opt = $alpha_opt * 0.01;
             $alpha22 = $alpha22 * 0.01;
 
+            //ПЕРЕВІРКА УМОВИ ДОЦІЛЬНОСТІ РЕКЛАМИ
+            if(!isreason($p,$alpha2,$alpha1,$k,$N0,$s)){
+                echo "No reason";//ВИВЕСТИ ПОВІДОМЛЕННЯ ПРО НЕДОЦІЛЬНІСТЬ ЦІЄЇ РЕКЛАМИ---------------------
+            } else{
+                echo "Is reason";
+            }
+
             //ЗАКИДУЄМО У БД
-            if(!empty($_POST)) {
+            if(!empty($_POST) && isreason($p,$alpha2,$alpha1,$k,$N0,$s)) {
                 if($flag == 0) {
                     $conn = mysqli_connect($servername,$username,$password,$database);
                 if (!$conn) {
                     die("Помилка з'єднання: " . mysqli_connect_error());
                 } else{
-
-                    $sql1 = "INSERT INTO add_data (add_price, alpha1, alpha2, alpha_opt, alpha2_2, k, T_days) VALUES ('$s','$alpha1', '$alpha2', '$alpha_opt',' $alpha22','$k', '$T_days')";
-                    $sql2 = "INSERT INTO region (region_title, N0) VALUES ('$region_title', '$N0') ";
-                    $sql3 = "INSERT INTO product (title, price) VALUES ('$prod_title','$p')  ";
-
-                    if (mysqli_query($conn, $sql1) && mysqli_query($conn, $sql2) && mysqli_query($conn, $sql3)) {echo "Correct";}
-                    else {
-                        echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
-                        echo "Error: " . $sql2 . "<br>" . mysqli_error($conn);
-                        echo "Error: " . $sql3 . "<br>" . mysqli_error($conn);
+                    $sql2 = "INSERT INTO product (title, price) VALUES ('$prod_title','$p')";
+                    $sql = "SELECT @@identity;";
+                    $result = mysqli_query($conn, $sql2) or die("Error " . mysqli_error($conn));
+                    $get_id = mysqli_query($conn, $sql) or die("Error " . mysqli_error($conn));
+                    if($result && $get_id)
+                    {
+                        while ($row = mysqli_fetch_row($get_id)) {
+                            $prod_id = $row[0];
+                        }
+                        mysqli_free_result($get_id);
                     }
+
+                    $sql3 = "INSERT INTO region (region_title, N0) VALUES ('$region_title', '$N0')";
+                    $sql = "SELECT @@identity;";
+                    $result = mysqli_query($conn, $sql3) or die("Error " . mysqli_error($conn));
+                    $get_id = mysqli_query($conn, $sql) or die("Error " . mysqli_error($conn));
+                    if($result && $get_id)
+                    {
+                        while ($row = mysqli_fetch_row($get_id)) {
+                            $region_id = $row[0];
+                        }
+                        mysqli_free_result($get_id);
+                    }
+
+                    $sql4 = "INSERT INTO add_ (product, region) VALUES ('$prod_id','$region_id')";
+                    $sql = "SELECT @@identity;";
+                    $result = mysqli_query($conn, $sql4) or die("Error " . mysqli_error($conn));
+                    $get_id = mysqli_query($conn, $sql) or die("Error " . mysqli_error($conn));
+                    if($result && $get_id)
+                    {
+                        while ($row = mysqli_fetch_row($get_id)) {
+                            $ad_id = $row[0];
+                        }
+                        mysqli_free_result($get_id);
+                    }
+
+                    $sql1 = "INSERT INTO add_data (id_add, add_price, alpha1, alpha2, alpha_opt, alpha2_2, k, T_days) 
+                              VALUES ('$ad_id','$s','$alpha1', '$alpha2', '$alpha_opt',' $alpha22','$k', '$T_days')";
+                    $result = mysqli_query($conn, $sql1) or die("Error " . mysqli_error($conn));
+
+                    list($T1, $N1) = change_point($alpha2, $alpha1, $k, $N0);
+                    $sql5 = "INSERT INTO coefficients (id_add, T1, N1) VALUES ('$ad_id','$T1', '$N1');";
+                    $result = mysqli_query($conn, $sql5) or die("Error " . mysqli_error($conn));
+
                     mysqli_close($conn);
                 }
             }}
-            //ПЕРЕВІРКА УМОВИ ДОЦІЛЬНОСТІ РЕКЛАМИ
+
+            //МАСИВИ, ЩО ПРИЙМАЮТЬ ДАНІ ДЛЯ ГРАФІКА
+            $N_t_first = array();
+            $T_first = array();
+
+            $N_t_second = array();
+            $T_second = array();
 
             //ВИКЛИК ФУНКЦІЙ ОБРАХУНКУ
-            //ФУНКЦІЇ ПОВЕРНУТЬ МАСИВИ
+            list($T_first, $N_t_first) = main1($alpha1, $alpha2, $k, $N0);
+            list($T_second, $N_t_second) = main2($alpha2, $alpha1, $alpha_opt, $alpha22, $k, $N0);
+            //ФУНКЦІЇ ПОВЕРТАЮТЬ МАСИВИ
 
-            //main1($alpha1, $alpha2, $k, $N0);
-            //main2($alpha2, $alpha1, $alpha_opt, $alpha22, $k, $N0);
-
-            //ВИВЕСТИ ГРАФІК
+            //ВИВЕСТИ ГРАФІК---------------------------------
+            //T_first i T_second вісь Х
+            //N_t_first і N_t_second вісь У
+            //ДВА ГРАФІКИ НА ОДНОМУ РІЗНИМИ КОЛЬОРАМИ
         }
         ?>
     </form>
