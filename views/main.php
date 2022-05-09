@@ -200,6 +200,30 @@ if (!$conn3) {
             //ВИКЛИК ФУНКЦІЙ ОБРАХУНКУ
             list($T_first, $N_t_first) = main1($alpha1, $alpha2, $k, $N0);
             list($T_second, $N_t_second) = main2($alpha2, $alpha1, $alpha_opt, $alpha22, $k, $N0);
+
+            $graph = array(array());
+            $graph[0][0] = "x";
+            $graph[0][1] = "y1";
+            $graph[0][2] = "y2";
+
+            for($i = 1; $i <= 101; $i++){
+                $j = 0;
+                $graph[$i][$j] = $T_first[$i-1];
+                $graph[$i][$j+1] = $N_t_first[$i-1];
+                $graph[$i][$j+2] = $N_t_second[$i-1];
+            }
+            $myfile = fopen("graph_data.csv", "w");
+
+            // formatting each row of data in CSV format
+            // and outputting it
+            foreach ($graph as $line)
+            {
+                fputcsv($myfile, $line);
+            }
+
+            // closing the file
+            fclose($myfile);
+
             //ФУНКЦІЇ ПОВЕРТАЮТЬ МАСИВИ
 
             //ВИВЕСТИ ГРАФІК---------------------------------
