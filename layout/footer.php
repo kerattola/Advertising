@@ -11,6 +11,11 @@
             </div>
         </div><!-- /.container -->
     </footer>
+
+    <script src="./amcharts4/core.js"></script>
+    <script src="./amcharts4/charts.js"></script>
+    <script src="./amcharts4/themes/animated.js"></script>
+    <script src="graph.js"></script>
 </body>
 
 </html>

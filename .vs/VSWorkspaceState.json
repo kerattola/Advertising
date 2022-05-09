@@ -1,9 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\css",
     "\\layout",
     "\\views"
   ],
-  "SelectedNode": "\\layout\\header.php",
+  "SelectedNode": "\\js.js",
   "PreviewInSolutionExplorer": false
 }

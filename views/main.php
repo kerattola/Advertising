@@ -16,6 +16,7 @@ if (!$conn3) {
 }
 ?>
 
+
 <div class="container">
     <div class="main__title">Введіть всі потрібні параметри</div>
     <form class="container" method="POST">
@@ -33,6 +34,11 @@ if (!$conn3) {
                 <div class="form_text">Величина прибутку від продажу одиниці товару</div>
                 <input class="text form__input" type="text" name="p" placeholder= "p" size="5" required>
                 <?php echo $errP; ?>
+
+                 <div class="form_text">Дні</div>
+                <input class="text form__input" type="text" name="t_days" placeholder= "t_days" size="5" required>
+                 <div class="form_text">Місто</div>
+                <input class="text form__input" type="text" name="region_title" placeholder= "region_title" size="5" required>
             </div>
 
             <div class="form__collum">
@@ -49,11 +55,19 @@ if (!$conn3) {
                 <input class="text form__input" type="text" name="alpha22" placeholder= "alpha22" size="5" required>
                 <?php echo $errAlpha22; ?>
 
+                 <div class="form_text">prod_title</div>
+                <input class="text form__input" type="text" name="prod_title" placeholder= "prod_title" size="5" required>
+                 <div class="form_text">amm</div>
+                <input class="text form__input" type="text" name="amm" placeholder= "amm" size="5" required>
+
             </div>
         </div>
-        <button class="form__btn" type="submit">
+        <button class="form__btn" type="submit" onclick="showDiv()">
             Почати
         </button>
+                <input type="button" class="form__btn" onclick="showDiv()">
+            Пои
+        </input>
 
         <?php
         //ВАЛІДАЦІЯ ЗНАЧЕНЬ
@@ -206,6 +220,17 @@ if (!$conn3) {
             list($P_first, $P_second) = profit_both($p, $alpha1, $alpha2, $k, $N0, $N1, $alpha_opt, $alpha22, $T1, $s);//ПРИБУТОК БЕЗ ТА З КОРИГУВАННЯМ АЛЬФА
         }
         ?>
+
+
+
+
+
+
+
+    <div class="form__graph" id="form_graph">
+        <div id="chartdiv"></div>
+    </div>
+ 
     </form>
 
 </div>
