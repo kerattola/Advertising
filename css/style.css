@@ -51,7 +51,10 @@ body {
     font-size: 32px;
     padding: 0px 20px;
     color: #ffffff;
-
+}
+.header__link {
+    text-decoration: none;
+    color: #fcf0ff;
 }
 .header__logo {
     height: 45px;

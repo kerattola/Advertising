@@ -14,10 +14,10 @@
                     <img class="header__logo" src= "css/logo.png" alt="logo">
                 </div>
                 <div class = "header__title">
-                    <div>Advertising</div>
+                    <div><a class="header__link" href="index.php?action=main">Advertising</a></div>
                 </div>
                 <div class = "header__subtitle">
-                    <div>?</div>
+                    <div><a href="index.php?action=start">?</a></div>
                 </div>
             </div>
         </header>
