@@ -20,7 +20,7 @@ if (!$conn3) {
 <div class="container">
     <div class="main__title">Введіть всі потрібні параметри</div>
     <form class="container" method="POST">
-        <div class="form">
+        <div class="form" id="form">
             <div class="form__collum">
                 <div class="form_text">Максимальна кількість покупців</div>
                 <input class="text form__input" type="text" name="num" placeholder= "num" size="5"  required>
@@ -35,7 +35,7 @@ if (!$conn3) {
                 <input class="text form__input" type="text" name="p" placeholder= "p" size="5" required>
                 <?php echo $errP; ?>
 
-                 <div class="form_text">Дні</div>
+                 <div class="form_text">Тривалість реклами (дні)</div>
                 <input class="text form__input" type="text" name="t_days" placeholder= "t_days" size="5" required>
                  <div class="form_text">Місто</div>
                 <input class="text form__input" type="text" name="region_title" placeholder= "region_title" size="5" required>
@@ -55,19 +55,16 @@ if (!$conn3) {
                 <input class="text form__input" type="text" name="alpha22" placeholder= "alpha22" size="5" required>
                 <?php echo $errAlpha22; ?>
 
-                 <div class="form_text">prod_title</div>
+                 <div class="form_text">Найменування реклами</div>
                 <input class="text form__input" type="text" name="prod_title" placeholder= "prod_title" size="5" required>
-                 <div class="form_text">amm</div>
-                <input class="text form__input" type="text" name="amm" placeholder= "amm" size="5" required>
+                
 
             </div>
         </div>
-        <button class="form__btn" type="submit" onclick="showDiv()">
+        <button class="form__btn" type="submit" onclick="hideDiv()">
             Почати
         </button>
-                <input type="button" class="form__btn" onclick="showDiv()">
-            Пои
-        </input>
+    </form>
 
         <?php
         //ВАЛІДАЦІЯ ЗНАЧЕНЬ
@@ -130,9 +127,10 @@ if (!$conn3) {
 
             //ПЕРЕВІРКА УМОВИ ДОЦІЛЬНОСТІ РЕКЛАМИ
             if(!isreason($p,$alpha2,$alpha1,$k,$N0,$s)){
-                echo "No reason";//ВИВЕСТИ ПОВІДОМЛЕННЯ ПРО НЕДОЦІЛЬНІСТЬ ЦІЄЇ РЕКЛАМИ---------------------
+                echo "<button class='error__btn'>Дана реклама не буде доцільною</button>";
+       
             } else{
-                echo "Is reason";
+                echo "<button class='form__btn' onclick='showResult()'>Показати результати</button>";
             }
 
             //ЗАКИДУЄМО У БД
@@ -190,13 +188,6 @@ if (!$conn3) {
                 }
             }}
 
-            //МАСИВИ, ЩО ПРИЙМАЮТЬ ДАНІ ДЛЯ ГРАФІКА
-            $N_t_first = array();
-            $T_first = array();
-
-            $N_t_second = array();
-            $T_second = array();
-
             //ВИКЛИК ФУНКЦІЙ ОБРАХУНКУ
             list($T_first, $N_t_first) = main1($alpha1, $alpha2, $k, $N0);
             list($T_second, $N_t_second) = main2($alpha2, $alpha1, $alpha_opt, $alpha22, $k, $N0);
@@ -220,19 +211,15 @@ if (!$conn3) {
             {
                 fputcsv($myfile, $line);
             }
-
-            // closing the file
             fclose($myfile);
 
-            //ФУНКЦІЇ ПОВЕРТАЮТЬ МАСИВИ
 
             //ВИВЕСТИ ГРАФІК---------------------------------
             //T_first i T_second вісь Х
             //N_t_first і N_t_second вісь У
-            //ДВА ГРАФІКИ НА ОДНОМУ РІЗНИМИ КОЛЬОРАМИ
+
 
             //ОБЧИСЛЕННЯ ІНШИХ ДАНИХ ПРО РЕКЛАМУ
-            //ВИВЕСТИ ЦІ ДАНІ З ОПИСОМ ДО ЧИ ПІСЛЯ ГРАФІКА-----------------------
             $S_spend_first = sum_spend_first($s, $alpha1);//ЗАГАЛЬНІ ВИТРАТИ БЕЗ КОРИГУВАННЯ АЛЬФА
 
             $S_spend_second = sum_spend_second($s, $alpha1, $T1, $alpha_opt);//ЗАГАЛЬНІ ВИТРАТИ З КОРИГУВАННЯМ АЛЬФА
@@ -244,17 +231,33 @@ if (!$conn3) {
             list($P_first, $P_second) = profit_both($p, $alpha1, $alpha2, $k, $N0, $N1, $alpha_opt, $alpha22, $T1, $s);//ПРИБУТОК БЕЗ ТА З КОРИГУВАННЯМ АЛЬФА
         }
         ?>
+        <div class="result" id="result">
+            <div class="main__title">   Результати
+            </div>
+            <div class="result__container">
+                <div class="result__collum">
+                    <div class="form_text">Загальні витрати без коригування альфа</div>
+                    <div><input name="type" value="<?= $S_spend_first ?>" ></div>
+                    <div class="form_text">Загальні витрати з коригування альфа</div>
+                    <div><input name="type" value="<?= $S_spend_second ?>" ></div>
+                    <div class="form_text">Дохід без коригування альфа</div>
+                    <div><input name="type" value="<?= $D_first ?>" ></div>
+                </div>
+                <div class="result__collum">
+                    <div class="form_text">Дохід з коригування альфа</div>
+                    <div><input name="type" value="<?= $D_second ?>" ></div>
+                    <div class="form_text">Прибуток без корегування альфа</div>
+                    <div><input name="type" value="<?= $P_first ?>" ></div>
+                    <div class="form_text">Прибуток з коригуванням альфа</div>
+                    <div><input name="type" value="<?= $P_second ?>" ></div>
+                </div>
+            </div>
+            <button class="form__btn" onclick="showGraph()">
+                Показати графік
+            </button>
 
-
-
-
-
-
-
-    <div class="form__graph" id="form_graph">
-        <div id="chartdiv"></div>
-    </div>
- 
-    </form>
-
+            <div class="form__graph" id="form_graph">
+                <div id="chartdiv"></div>
+            </div>
+        </div>
 </div>

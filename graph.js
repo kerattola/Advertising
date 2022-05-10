@@ -12,12 +12,12 @@ chart.dataSource.parser.options.useColumnNames = true;
 var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
 categoryAxis.dataFields.category = "x";
 
-categoryAxis.title.text = 'X Axis';
+categoryAxis.title.text = 'Timeline';
 categoryAxis.renderer.minGridDistance = 40;
 
 // Create value axis
 var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-valueAxis.title.text = 'Y Axis';
+valueAxis.title.text = 'People';
 
 // Create series
 var series1 = chart.series.push(new am4charts.LineSeries());
@@ -41,7 +41,7 @@ chart.scrollbarY = new am4core.Scrollbar();
 // Add cursor and series tooltip support
 chart.cursor = new am4charts.XYCursor();
 
-valueAxisX.getSeriesDataItem = function (series, position) {
+valueAxis.getSeriesDataItem = function (series, position) {
     var key = this.axisFieldName + this.axisLetter;
     var value = this.positionToValue(position);
     const dataItem = series.dataItems.getIndex(series.dataItems.findClosestIndex(value, function (x) {
@@ -50,6 +50,11 @@ valueAxisX.getSeriesDataItem = function (series, position) {
     return dataItem;
 }
 
-function showDiv() {
+
+function showGraph() {
     document.getElementById('form_graph').style.visibility = "visible";
 }
+function showResult() {
+    document.getElementById('result').style.visibility = "visible";
+}
+

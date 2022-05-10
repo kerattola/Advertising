@@ -70,6 +70,7 @@ body {
     display: flex;
     flex-direction: row;
     border: solid 1px;
+    border-radius: 15px;
 }
 
 .form__collum {
@@ -86,15 +87,42 @@ body {
     padding: 15px 0 0;
 }
 .form__btn {
-    
     height: 50px;
     width: 150px;
-    background-color: #3538c7;
+    background-color: #550066;
     font-size: 18px;
     margin: 35px 0;
     border: 0;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 15px;
+    color: #fcf0ff;
+}
+.error__btn {
+    height: 150px;
+    width: 150px;
+    background-color: #ff0000;
+    font-size: 18px;
+    margin: 35px 0;
+    border: 0;
+    cursor: pointer;
+    border-radius: 15px;
+    color: #000000;
+}
+.result{
+    visibility: hidden;
+}
+.result__container {
+    display: flex;
+    flex-direction: row;
+    border: solid 2px;
+    border-block-color: #3c0066;
+    border-radius: 15px;
+}
+.result__collum {
+    width: 50%;
+    text-align: left;
+    color: white;
+    padding: 45px 45px 45px 75px;
 }
 /* Footer */
 footer {
