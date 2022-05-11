@@ -14,8 +14,12 @@ mysqli_set_charset($conn3, 'utf8');
 if (!$conn3) {
     die("Connection failed: " . mysqli_connect_error());
 }
-?>
+//ДЛЯ ВАЛІДАЦІЯ ЗНАЧЕНЬ
+$pattern_int = '/^\d+$/';
+$pattern_float = '/^[\d]*[\.,]?[\d]*$|/';
 
+$flag = 0;
+?>
 
 <div class="container">
     <div class="main__title">Введіть всі потрібні параметри</div>
@@ -24,16 +28,48 @@ if (!$conn3) {
             <div class="form__collum">
                 <div class="form_text">Максимальна кількість покупців</div>
                 <input class="text form__input" type="text" name="num" placeholder= "num" size="5"  required>
-                <?php echo $errNum; ?>
+                <span class="error">
+                    <?php if(!empty($_POST)) {
+                        if (isset($_POST["num"]) && !preg_match($pattern_int, $_POST["num"])) {
+                            $errNum = "Неправильно введено число! Введіть ціле число!";
+                            $flag = 1;
+                            echo $errNum;
+                        }
+                    }
+                    ?></span>
                 <div class="form_text">Інтенсивність реклами</div>
                 <input class="text form__input" type="text" name="alpha1" placeholder= "alpha1" size="5" required>
-                <?php echo $errAlpha1; ?>
+                <span class="error">
+                    <?php if(!empty($_POST)) {
+                        if (isset($_POST["alpha1"]) && !preg_match($pattern_int, $_POST["alpha1"])) {
+                            $errAlpha1 = "Неправильно введено число! Введіть ціле число!";
+                            $flag = 1;
+                            echo $errAlpha1;
+                        }
+                    }
+                    ?></span>
                 <div class="form_text">Ступінь спілкування клієнтів</div>
                 <input class="text form__input" type="text" name="alpha2" placeholder= "alpha2" size="5" required>
-                <?php echo $errAlpha2; ?>
+                <span class="error">
+                    <?php if(!empty($_POST)) {
+                        if (isset($_POST["alpha2"]) && !preg_match($pattern_int, $_POST["alpha2"])) {
+                            $errAlpha2 = "Неправильно введено число! Введіть ціле число!";
+                            $flag = 1;
+                            echo $errAlpha2;
+                        }
+                    }
+                    ?></span>
                 <div class="form_text">Величина прибутку від продажу одиниці товару</div>
                 <input class="text form__input" type="text" name="p" placeholder= "p" size="5" required>
-                <?php echo $errP; ?>
+                <span class="error">
+                    <?php if(!empty($_POST)) {
+                        if (isset($_POST["p"]) && !preg_match($pattern_float, $_POST["p"])) {
+                            $errP = "Неправильно введено число! ";
+                            $flag = 1;
+                            echo $errP;
+                        }
+                    }
+                    ?></span>
 
                  <div class="form_text">Тривалість реклами (дні)</div>
                 <input class="text form__input" type="text" name="t_days" placeholder= "t_days" size="5" required>
@@ -44,16 +80,48 @@ if (!$conn3) {
             <div class="form__collum">
                 <div class="form_text">Вартість (ціна) елементарного акту реклами</div>
                 <input class="text form__input" type="text" name="s" placeholder= "s" size="5" required>
-                <?php echo $errS; ?>
+                <span class="error">
+                    <?php if(!empty($_POST)) {
+                        if (isset($_POST["s"]) && !preg_match($pattern_float, $_POST["s"])) {
+                            $errS = "Неправильно введено число!";
+                            $flag = 1;
+                            echo $errS;
+                        }
+                    }
+                    ?></span>
                 <div class="form_text">Коефіцієнт пропорційності</div>
                 <input class="text form__input" type="text" name="k" placeholder= "k" size="5" required>
-                <?php echo $errK; ?>
+                <span class="error">
+                    <?php if(!empty($_POST)) {
+                        if (isset($_POST["k"]) && !preg_match($pattern_float, $_POST["k"])) {
+                            $errK = "Неправильно введено число!";
+                            $flag = 1;
+                            echo $errK;
+                        }
+                    }
+                    ?></span>
                 <div class="form_text">Оптимальність реклами</div>
                 <input class="text form__input" type="text" name="alpha_opt" placeholder= "alpha_opt" size="5" required>
-                <?php echo $errAlpha_opt; ?>
+                <span class="error">
+                    <?php if(!empty($_POST)) {
+                        if (isset($_POST["alpha_opt"]) && !preg_match($pattern_int, $_POST["alpha_opt"])) {
+                            $errAlpha_opt = "Неправильно введено число! Введіть ціле число!";
+                            $flag = 1;
+                            echo $errAlpha_opt;
+                        }
+                    }
+                    ?></span>
                 <div class="form_text">Модифікований ступінь спілкування клієнтів </div>
                 <input class="text form__input" type="text" name="alpha22" placeholder= "alpha22" size="5" required>
-                <?php echo $errAlpha22; ?>
+                <span class="error">
+                    <?php if(!empty($_POST)) {
+                        if (isset($_POST["alpha22"]) && !preg_match($pattern_int, $_POST["alpha22"])) {
+                            $errAlpha22 = "Неправильно введено число! Введіть ціле число!";
+                            $flag = 1;
+                            echo $errAlpha22;
+                        }
+                    }
+                    ?></span>
 
                  <div class="form_text">Найменування реклами</div>
                 <input class="text form__input" type="text" name="prod_title" placeholder= "prod_title" size="5" required>
@@ -67,43 +135,8 @@ if (!$conn3) {
     </form>
 
         <?php
-        //ВАЛІДАЦІЯ ЗНАЧЕНЬ
-        $pattern_int = '/^\d+$/';
-        $pattern_float = '/^[\d]*[\.,]?[\d]*$|/';
 
-        $flag = 0;
-        if (!empty($_POST)) {
-            if (isset($_POST["num"]) && !preg_match($pattern_int, $_POST["num"])) {
-                $errNum = "Неправильно введено число! Введіть ціле число!";
-                $flag = 1;
-            }
-            if (isset($_POST["alpha1"]) && !preg_match($pattern_int, $_POST["alpha1"])) {
-                $errAlpha1 = "Неправильно введено число! Введіть ціле число!";
-                $flag = 1;
-            }
-            if (isset($_POST["alpha2"]) && !preg_match($pattern_int, $_POST["alpha2"])) {
-                $errAlpha2 = "Неправильно введено число! Введіть ціле число!";
-                $flag = 1;
-            }
-            if (isset($_POST["p"]) && !preg_match($pattern_float, $_POST["p"])) {
-                $errP = "Неправильно введено число! ";
-                $flag = 1;
-            }if (isset($_POST["s"]) && !preg_match($pattern_float, $_POST["s"])) {
-                $errS = "Неправильно введено число!";
-                $flag = 1;
-            }
-            if (isset($_POST["k"]) && !preg_match($pattern_float, $_POST["k"])) {
-                $errK = "Неправильно введено число!";
-                $flag = 1;
-            }
-            if (isset($_POST["alpha_opt"]) && !preg_match($pattern_int, $_POST["alpha_opt"])) {
-                $errAlpha_opt = "Неправильно введено число! Введіть ціле число!";
-                $flag = 1;
-            }
-            if (isset($_POST["alpha22"]) && !preg_match($pattern_int, $_POST["alpha22"])) {
-                $errAlpha22 = "Неправильно введено число! Введіть ціле число!";
-                $flag = 1;
-            }
+        if (!empty($_POST) && $flag == 0) {
 
             //ПЕРЕВЕДЕННЯ ЗНАЧЕНЬ У ПОТРІБНИЙ ВИД - МАШТАБУВАННЯ
             $N0 = $_POST["num"];
@@ -116,9 +149,9 @@ if (!$conn3) {
             $alpha22 = $_POST["alpha22"];
 
             //ДОДАТИ ІНПУТИ НА ЦІ ПОЛЯ----------------------------
-            $T_days = 10; //$_POST["t_days"]
-            $region_title = 'Chernivtsi'; //$_POST["region_title"]
-            $prod_title = 'Phone'; //$_POST["prod_title"]
+            $T_days = $_POST["t_days"];
+            $region_title = $_POST["region_title"];
+            $prod_title = $_POST["prod_title"];
 
             $alpha1 =  $alpha1 * 0.01;
             $alpha2 =  $alpha2 * 0.01;
@@ -134,7 +167,7 @@ if (!$conn3) {
             }
 
             //ЗАКИДУЄМО У БД
-            if(!empty($_POST) && isreason($p,$alpha2,$alpha1,$k,$N0,$s)) {
+            if(isreason($p,$alpha2,$alpha1,$k,$N0,$s)) {
                 if($flag == 0) {
                     $conn = mysqli_connect($servername,$username,$password,$database);
                 if (!$conn) {
@@ -186,7 +219,7 @@ if (!$conn3) {
 
                     mysqli_close($conn);
                 }
-            }}
+            }
 
             //ВИКЛИК ФУНКЦІЙ ОБРАХУНКУ
             list($T_first, $N_t_first) = main1($alpha1, $alpha2, $k, $N0);
@@ -229,7 +262,7 @@ if (!$conn3) {
             $D_second = income_second($p, $alpha1, $alpha2, $k, $N0, $N1, $alpha_opt, $alpha22, $T1);//ДОХІД З КОРИГУВАНЯМ АЛЬФА
 
             list($P_first, $P_second) = profit_both($p, $alpha1, $alpha2, $k, $N0, $N1, $alpha_opt, $alpha22, $T1, $s);//ПРИБУТОК БЕЗ ТА З КОРИГУВАННЯМ АЛЬФА
-        }
+        }}
         ?>
         <div class="result" id="result">
             <div class="main__title">   Результати
