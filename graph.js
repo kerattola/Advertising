@@ -55,6 +55,6 @@ function showGraph() {
     document.getElementById('form_graph').style.visibility = "visible";
 }
 function showResult() {
-    document.getElementById('result').style.visibility = "visible";
+    document.getElementById('result').style.display = "block";
 }
 

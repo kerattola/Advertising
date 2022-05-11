@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv=content-type content="text/html; charset=utf-8">
-        <link href="./css/style.css" rel="stylesheet">
+        <meta http-equiv=content-type content="text/html; charset="UTF-8">
+        <link href="./css/style.css" rel="stylesheet" type="text/css">
 
 
     </head>
@@ -17,7 +17,7 @@
                     <div><a class="header__link" href="index.php?action=main">Advertising</a></div>
                 </div>
                 <div class = "header__subtitle">
-                    <div><a href="index.php?action=start">?</a></div>
+                    <div><a class="header__link" href="index.php?action=welcome">?</a></div>
                 </div>
             </div>
         </header>

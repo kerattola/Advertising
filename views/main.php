@@ -148,7 +148,7 @@ $flag = 0;
             $alpha_opt = $_POST["alpha_opt"];
             $alpha22 = $_POST["alpha22"];
 
-            //ДОДАТИ ІНПУТИ НА ЦІ ПОЛЯ----------------------------
+            //ДОДАТИ ІНПУТИ НА ЦІ ПОЛЯ
             $T_days = $_POST["t_days"];
             $region_title = $_POST["region_title"];
             $prod_title = $_POST["prod_title"];
@@ -247,7 +247,7 @@ $flag = 0;
             fclose($myfile);
 
 
-            //ВИВЕСТИ ГРАФІК---------------------------------
+            //ВИВЕСТИ ГРАФІК
             //T_first i T_second вісь Х
             //N_t_first і N_t_second вісь У
 
