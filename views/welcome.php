@@ -1,10 +1,8 @@
-
 <div class="container">
-    <div class="main__title">Організація рекламної кампанії у випадку 
-                             визначення кількості проінформованих клієнтів</div>
+    <div class="main__title">РћСЂРіР°РЅС–Р·Р°С†С–СЏ СЂРµРєР»Р°РјРЅРѕС— РєР°РјРїР°РЅС–С— Сѓ РІРёРїР°РґРєСѓ РІРёР·РЅР°С‡РµРЅРЅСЏ РєС–Р»СЊРєРѕСЃС‚С– РїСЂРѕС–РЅС„РѕСЂРјРѕРІР°РЅРёС… РєР»С–С”РЅС‚С–РІ.</div>
 
-    <div >
-    <div ><a class="start__link form__btn" href="index.php?action=main">Почати</a></div>
+    <div>
+    <div><a class="start__link form__btn" href="index.php?action=main">РџРѕС‡Р°С‚Рё</a></div>
     </div>
 
 
